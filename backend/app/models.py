@@ -1,6 +1,7 @@
 from app import db
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=False, nullable=False)
@@ -25,7 +26,7 @@ class User(db.Model):
         return data
 
     def setAttributes(self, key, value):
-        if key != "id" and key != "pw_hash" and key != "email":
+        if key == "sports" or key == "music" or key == "travel" or key == "phone":
             setattr(self, key, value)
             return True
         return False

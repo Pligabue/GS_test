@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
+.login {
+    background-color: #f2f2f2;
+    margin-top: 3rem;
+    margin-left: 35%;
+    width: 30%;
+    min-width: 300px;
+    padding: 2rem;
+    font-family: "Roboto Condensed"
+}
+
+.login form {
+    text-align: left;
+    padding: 1px;
+}
+
+.login label, .login input, .login select {
+    border-style: none;
+    display: block;
+    border-radius: 3px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login label {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.login input, .login select {
+    border: 1px solid;
+    padding: 0.3rem 0.5rem;
+}
+
+.login .button-container {
+    text-align: right;
+}
+
+.login button, .login button:focus {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    outline: none;
+
+    margin-top: 2rem;
+    position: relative;
+    left: 0;
+}
+
