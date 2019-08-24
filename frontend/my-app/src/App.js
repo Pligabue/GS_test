@@ -18,11 +18,6 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            id: null,
-            isLoggedIn: false,
-            TandC: false,
-        }
     }
     
     componentDidMount() {
@@ -33,27 +28,34 @@ class App extends React.Component {
                 isLoggedIn: true,
                 TandC: response.data.TandC
             })
+        }).catch(() => {
+            this.setState({
+                id: null,
+                isLoggedIn: false,
+                TandC: false,
+            })
         })
     }
     
 
     render() {
         return (<div className="App">
-            <Header {...this.state} />
-            <Switch>
-                <Route path="/home" component={Home} />
-                <Route exact path="/" component={Home} />
-                <Route path="/signup" component={SignUp} />
-                <Route path="/login" component={Login} />
-                <Route path="/check" component={Check} />
-                <Route path="/terms" component={TandC} />
-                {this.state.isLoggedIn &&
+            {this.state && <div>
+                <Header {...this.state} />
+                <Switch>
+                    <Route path="/home" component={Home} />
+                    <Route exact path="/" component={Home} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/check" component={Check} />
+                    <Route path="/terms" component={TandC} />
                     <Route path="/profile/:id" render={(props) => (
                         <Profile key={props.match.params.id} {...props} {...this.state} />
                     )} />
-                }
-                <Route component={NoMatch} />
-            </Switch>
+                    <Route component={NoMatch} />
+                </Switch>
+            </div>}
+                
         </div>)
     }
 }

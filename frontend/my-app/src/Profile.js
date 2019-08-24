@@ -13,6 +13,7 @@ class Profile extends Component {
             id: this.props.id,
             TandC: this.props.TandC
         }
+        console.log(this.state)
     }
 
     componentDidUpdate(prevProps) {
@@ -40,9 +41,12 @@ class Profile extends Component {
     
     render() {
         return (<div>
-            {(!this.state.TandC) ?  
-                <Redirect to="/terms" /> :
-            <div className="profile"> 
+            {(!this.state.TandC) ? <div>
+                {this.state.isLoggedIn ? 
+                    <Redirect to="/terms" /> :
+                    <Redirect to="/home" />
+                }
+            </div> : <div className="profile"> 
                 <h1 id="name" />
                 <div className="info">
                     <p id="email"><strong>E-mail: </strong></p>
