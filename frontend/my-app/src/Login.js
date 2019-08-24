@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 
 import "./Login.css"
+import {setUserId, clearUserId} from "./UserData"
 
 class Login extends React.Component {
 
@@ -27,15 +28,25 @@ class Login extends React.Component {
             email: this.state.email,
             password: this.state.password,
         }).then(response => {
-            alert("Login efetuado com sucesso.")
-            window.location.assign("/check")
+            setUserId(response.data)
+            axios.get("/api/terms")
+            .then(response => {
+                if (!response.data.TandC)
+                    window.location.assign("/terms")
+                else
+                    window.location.assign("/")
+            }).catch(() => {
+                axios.get("/api/logout")
+                clearUserId()
+            })
         }).catch(error => { 
             alert("Login não pode ser feito. ", error.message)
+            clearUserId()
         })
     }
 
     render() {
-        return(<div className="login">
+        return(<div className="myForms">
             <h1>Log In</h1>
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="email">E-mail:</label>

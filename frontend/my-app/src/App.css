@@ -31,3 +31,60 @@
     transform: rotate(360deg);
   }
 }
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
+.myForms {
+    background-color: #f2f2f2;
+    margin-left: 35%;
+    width: 30%;
+    min-width: 300px;
+    padding: 2rem;
+    font-family: "Roboto Condensed";
+
+    position: relative;
+    top: 5.5rem;
+}
+
+.myForms h1 {
+}
+
+.myForms form {
+    text-align: left;
+    padding: 1px;
+}
+
+.myForms label, .myForms input, .myForms select {
+    border-style: none;
+    display: block;
+    border-radius: 3px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.myForms label {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.myForms input, .myForms select {
+    border: 1px solid;
+    padding: 0.3rem 0.5rem;
+}
+
+.myForms .button-container {
+    text-align: right;
+}
+
+.myForms button, .myForms button:focus {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    outline: none;
+
+    margin-top: 2rem;
+    position: relative;
+    left: 0;
+}
+

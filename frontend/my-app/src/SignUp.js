@@ -41,7 +41,7 @@ class SignUp extends React.Component {
     }
 
     render() {
-        return(<div className="signUp">
+        return(<div className="myForms">
             <h1>Cadastro</h1>
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Nome:</label>

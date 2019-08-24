@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Viga&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
+.header {
+    padding: 1rem 0;
+    background-color: #001f3f;
+    white-space: nowrap;
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+}
+
+.header img {
+    border-radius: 100%;
+}
+
+.navigation, .navigationLogin {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+
+.navigation a, .navigation a:visited, .navigationLogin a, .navigationLogin a:visited {
+    font-family: "Roboto Condensed";
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 0.2rem 1rem 0.3rem;
+    margin: 0 2rem;
+}
+
+.navigation a:hover {
+    background-color: white;
+    color: #001f3f;
+}
+
+.navigationLogin a:hover {
+    background-color: white;
+    color: #001f3f;
+}
+
+.link-button {
+    display: inline-block;
+    position: relative;
+    width: 4.5rem;
+    height: 0rem;
+    padding: 0 1rem;
+    margin: 0 2rem;
+}
+
+.link-button button { 
+    position: absolute;
+    left: 0;
+    top: -1.7rem;
+    background: none;
+    border: none; 
+    font-family: "Roboto Condensed";
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 0.2rem 1rem 0.3rem;
+}
+
+.link-button button:hover {
+    background-color: white;
+    color: #001f3f;
+    cursor: pointer;
+}
+
+.link-button button:focus {
+    outline: none;
+}
+
+
+.border {
+    padding: 1px 0;
+    width: 100%;
+    background: linear-gradient(to right, black, rgb(141, 172, 216));
+    position: fixed;
+    top: 3.8rem;
+    z-index: 5;
+}
+

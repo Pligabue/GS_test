@@ -1,0 +1,12 @@
+.myForms .checkbox {
+    text-align: right;
+}
+
+.checkbox input, .checkbox label {
+    display: inline-block;
+    width: auto;
+}
+
+.checkbox label {
+    padding: 1rem 0.5rem;
+}

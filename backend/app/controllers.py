@@ -1,9 +1,11 @@
 from flask import Blueprint, request, jsonify, make_response
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login_manager
 from app.models import User, InvalidUsage 
+
+from config import BASE_DIR
 
 users = Blueprint("users", __name__)
 
@@ -44,6 +46,26 @@ def signUp():
 def fbSignUp():
     return
 
+
+@users.route("/login", methods=["POST"])
+def login():
+
+    data = request.get_json()
+
+    try:
+        email = data["email"]
+        password = data["password"]
+        user = User.query.filter_by(email=email).first()
+    except:
+        raise InvalidUsage("Usuário não encontrado.", status_code=410)
+    
+    if check_password_hash(user.pw_hash, password):
+        login_user(user)
+        return jsonify(user.id)
+
+    raise InvalidUsage("Usuário ou senha incorretos.", status_code=401)
+
+
 @users.route("/profile/<int:id>", methods=["GET"])
 def getUser(id):
     try:
@@ -53,16 +75,13 @@ def getUser(id):
     userData = user.getProfile()
     return jsonify(userData)
 
-@users.route("/profile/<int:id>/set", methods=["PUT"])
+@users.route("/profile/set", methods=["PUT"])
 @login_required
-def setData(id):
+def setData():
 
     data = request.get_json()
     user = current_user
     
-    if user.id != id:
-        raise InvalidUsage("Você não tem permissão para fazer essa alteração.", status_code=401)
-
     for key in data:
 
         try:
@@ -77,25 +96,46 @@ def setData(id):
 
 
 
-@users.route("/login", methods=["POST"])
-def login():
 
-    data = request.get_json()
-    print(data)
+@users.route("/logout", methods=["GET"])
+@login_required
+def logOut():
+
     try:
-        email = data["email"]
-        password = data["password"]
-        user = User.query.filter_by(email=email).first()
+        logout_user()
+        return "Logout feito com sucesso."
     except:
-        raise InvalidUsage("Usuário não encontrado.", status_code=410)
-    
-    print(user.getProfile())
-    
-    if check_password_hash(user.pw_hash, password):
-        login_user(user)
-        return "Sucesso"
+        raise InvalidUsage("Não foi possível fazer o Logout.", status_code=401)
 
-    raise InvalidUsage("Usuário ou senha incorretos.", status_code=401)
+@users.route("/get/session", methods=["GET"])
+def getSession():
+
+    try:    
+        user = current_user
+    except:
+        raise InvalidUsage("Usuário não está logado.", status_code=401)
+    
+    return jsonify(user.id)
+
+
+@users.route("/terms", methods=["GET"])
+@login_required
+def terms():
+
+    path = BASE_DIR+"\\Terms.txt"
+    try:
+        f = open(path, "r")
+    except:
+        raise InvalidUsage("Erro na aquisição dos termos.", status_code=410)
+    
+    text = f.read()
+    
+    data = {
+        "TandC": current_user.TandC,
+        "text": text
+    }
+    return jsonify(data)
+
 
 @users.route("/check", methods=["GET"])
 @login_required
@@ -103,3 +143,18 @@ def check():
     user = current_user
     print(user.getProfile())
     return "Está logado, " + str(user.name)
+
+
+@users.route("/populate", methods=["GET"])
+def populate():
+    for i in range(10):
+        email = "user"+str(i)+"@user.com"
+        name = "User "+str(i)
+        password = generate_password_hash("user"+str(i))
+        gender = "N"
+        phone = str(i)+str(i)+str(i)+str(i)+str(i)+str(i)+str(i)+str(i)
+        user = User(email=email, name=name, pw_hash=password, gender=gender, phone=phone)
+        db.session.add(user)
+        db.session.commit()
+    return "Sucesso"
+
