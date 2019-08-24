@@ -28,20 +28,9 @@ class Login extends React.Component {
             email: this.state.email,
             password: this.state.password,
         }).then(response => {
-            setUserId(response.data)
-            axios.get("/api/terms")
-            .then(response => {
-                if (!response.data.TandC)
-                    window.location.assign("/terms")
-                else
-                    window.location.assign("/")
-            }).catch(() => {
-                axios.get("/api/logout")
-                clearUserId()
-            })
+            window.location.assign("/")
         }).catch(error => { 
             alert("Login não pode ser feito. ", error.message)
-            clearUserId()
         })
     }
 

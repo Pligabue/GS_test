@@ -16,13 +16,15 @@ class User(UserMixin, db.Model):
 
     def getProfile(self):
         data = {
+            "id": self.id,
             "name": self.name,
             "email": self.email,
             "gender": self.gender,
             "sports": self.sports,
             "music": self.music,
             "travel": self.travel,
-            "phone": self.phone
+            "phone": self.phone,
+            "TandC": self.TandC
         }
         return data
 

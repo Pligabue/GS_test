@@ -1,36 +1,55 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom"
 import Axios from 'axios';
-import {clearUserId} from "./UserData"
+import "./Profile.css"
 
 class Profile extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id
+            profileId: this.props.match.params.id,
+            isLoggedIn: this.props.isLoggedIn,
+            id: this.props.id,
+            TandC: this.props.TandC
         }
     }
-    
-    componentDidMount() {
-        Axios.get("/api/terms")
-            .then(response => {
-                if (!response.data.TandC)
-                    window.location.assign("/terms")
-                else {
-                    Axios.get("/api/profile/"+this.state.id)
-                    .then(response => {
-                        console.log(response.data)
-                    })
-                }
-            }).catch(() => {
-                Axios.get("/api/logout")
-                clearUserId()
+
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.setState({
+                isLoggedIn: this.props.isLoggedIn,
+                id: this.props.id,
+                TandC: this.props.TandC
             })
+        }
+    }
+
+    componentDidMount() {
+        Axios.get("/api/profile/"+this.state.profileId)
+        .then(response => {
+            let name = document.getElementById("name")
+            name.innerHTML = response.data.name
+            
+            let email = document.getElementById("email")
+            email.innerHTML += response.data.email
+        }).catch((error) => {
+            
+        })
     }
     
     render() {
         return (<div>
-
+            {(!this.state.TandC) ?  
+                <Redirect to="/terms" /> :
+            <div className="profile"> 
+                <h1 id="name" />
+                <div className="info">
+                    <p id="email"><strong>E-mail: </strong></p>
+                    <p id="phone"><strong>Phone: </strong></p>
+                    <p id="phone"><strong>Phone: </strong></p>
+                </div>
+            </div>}
         </div>);
     }
 }

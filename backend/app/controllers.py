@@ -112,10 +112,11 @@ def getSession():
 
     try:    
         user = current_user
+        data = user.getProfile()
     except:
         raise InvalidUsage("Usuário não está logado.", status_code=401)
     
-    return jsonify(user.id)
+    return jsonify(data)
 
 
 @users.route("/terms", methods=["GET"])

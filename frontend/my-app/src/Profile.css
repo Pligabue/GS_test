@@ -1,0 +1,16 @@
+
+.profile {
+    background-color: #f2f2f2;
+    margin-left: 35%;
+    width: 30%;
+    min-width: 300px;
+    padding: 2rem;
+    font-family: "Roboto Condensed";
+
+    position: relative;
+    top: 5.5rem;
+}
+
+.info {
+    text-align: left;
+}

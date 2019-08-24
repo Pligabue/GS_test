@@ -20,13 +20,24 @@ class Header extends React.Component {
         this.state = {
             isLoggedIn: this.props.isLoggedIn,
             id: this.props.id,
+            TandC: this.props.TandC
         }
     }
     
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.setState({
+                isLoggedIn: this.props.isLoggedIn,
+                id: this.props.id,
+                TandC: this.props.TandC
+            })
+        }
+    }
+
     render() {
         return (<div className="header">
             <div className="navigation">
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
             </div>
             <div className="navigationLogin">
                 {!this.state.isLoggedIn ? <div>
