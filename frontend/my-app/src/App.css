@@ -88,3 +88,24 @@
     left: 0;
 }
 
+
+
+.divTable{
+	display: table;
+}
+.divTableRow {
+    display: table-row;
+}
+.divTableHeading {
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+    display: table-cell;
+    padding: 0.25rem 0.5rem;
+}
+.divTableFoot {
+	display: table-footer-group;
+}
+.divTableBody {
+	display: table-row-group;
+}

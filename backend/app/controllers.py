@@ -81,18 +81,16 @@ def setData():
 
     data = request.get_json()
     user = current_user
-    
-    for key in data:
 
+    for key in data:
         try:
             if user.setAttributes(key, data[key]):
                 db.session.commit() 
                 userData = user.getProfile()      
-                return jsonify(userData)
+                continue
         except:
             raise InvalidUsage("Erro ao alterar dados. Atributo inexistente ou inalterável.", status_code=410)
-    
-    raise InvalidUsage("Erro ao alterar dados. Atributo inexistente ou inalterável.", status_code=410)
+    return jsonify(userData)
 
 
 

@@ -55,8 +55,8 @@ class TandC extends React.Component {
         e.preventDefault()
         Axios.put("/api/profile/set", {
             TandC: this.state.TandC
-        }).then(() => {
-            window.location.assign("/")
+        }).then((response) => {
+            window.location.assign("/profile/"+String(response.data.id))
         }).catch(() => {
             alert("Algo deu errado.")
         })

@@ -14,3 +14,19 @@
 .info {
     text-align: left;
 }
+
+.info .button-container {
+    text-align: right
+}
+
+.info button, .info button:focus {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    outline: none;
+
+    margin-top: 2rem;
+    position: relative;
+    left: 0;
+}

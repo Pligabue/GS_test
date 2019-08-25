@@ -28,7 +28,7 @@ class Login extends React.Component {
             email: this.state.email,
             password: this.state.password,
         }).then(response => {
-            window.location.assign("/")
+            window.location.assign("/profile/"+String(response.data))
         }).catch(error => { 
             alert("Login não pode ser feito. ", error.message)
         })
