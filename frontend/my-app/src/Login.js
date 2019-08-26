@@ -1,5 +1,3 @@
-/*global FB*/
-
 import React from "react"
 import Axios from "axios";
 
@@ -20,8 +18,9 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
+        
         window.fbAsyncInit = function() {
-            FB.init({
+            window.FB.init({
             appId      : '732327073884712',
             cookie     : true,
             xfbml      : true,
@@ -39,9 +38,9 @@ class Login extends React.Component {
     }
     
     FBlogin() {
-        FB.login(response => {
+        window.FB.login(response => {
             if (response.status === "connected")
-                FB.api('/me', {fields: 'name, middle_name, email'}, function(response) {
+                window.FB.api('/me', {fields: 'name, middle_name, email'}, function(response) {
                     Axios.post("/api/fblogin", {
                         email: response.email,
                         name: response.name
@@ -49,7 +48,7 @@ class Login extends React.Component {
                         window.location.assign("/profile/"+String(response.data))
                     }).catch(error => {
                         alert("Não foi possível fazer login utilizando o Facebook. ", error.message)
-                        FB.logout()
+                        window.FB.logout()
                     });
                 });
         }, {

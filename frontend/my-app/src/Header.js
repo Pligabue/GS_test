@@ -1,4 +1,3 @@
-/*global FB*/
 
 import React from 'react';
 import { Link } from "react-router-dom"
@@ -21,7 +20,7 @@ class Header extends React.Component {
     componentDidMount() {
         // FB SDK
         window.fbAsyncInit = function() {
-            FB.init({
+            window.FB.init({
             appId      : '732327073884712',
             cookie     : true,
             xfbml      : true,
@@ -50,7 +49,7 @@ class Header extends React.Component {
     }
     
     LogOut() {
-        FB.getLoginStatus(response => {
+        window.FB.getLoginStatus(response => {
             if (response.status === "connected")
                 window.FB.logout()
         })
