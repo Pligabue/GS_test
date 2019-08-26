@@ -18,6 +18,7 @@ class Header extends React.Component {
     }
     
     componentDidMount() {
+        
         // FB SDK
         window.fbAsyncInit = function() {
             window.FB.init({
