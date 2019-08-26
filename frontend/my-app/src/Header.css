@@ -77,12 +77,5 @@
 }
 
 
-.border {
-    padding: 1px 0;
-    width: 100%;
-    background: linear-gradient(to right, black, rgb(141, 172, 216));
-    position: fixed;
-    top: 3.8rem;
-    z-index: 5;
-}
+
 

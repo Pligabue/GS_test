@@ -8,11 +8,30 @@
     font-family: "Roboto Condensed";
 
     position: relative;
-    top: 5.5rem;
+    top: 3.85rem;
 }
 
+
 .info {
+    width: 100%;
     text-align: left;
+    font-size: 1.2rem;
+}
+
+.info table {
+    width: 100%;
+}
+
+.info td {
+    padding: 0.2rem 0.5rem;
+}
+
+.info table .column1 {
+    width: auto;
+}
+
+.info table .column2 {
+    width: 100%;
 }
 
 .info .button-container {
@@ -29,4 +48,17 @@
     margin-top: 2rem;
     position: relative;
     left: 0;
+}
+
+.info label, .info input, .info select {
+    border-style: none;
+    display: block;
+    border-radius: 3px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.info input, .info select {
+    border: 1px solid;
+    padding: 0.3rem 0.5rem;
 }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {Switch, Route, Redirect} from "react-router-dom"
 import Axios from 'axios';
@@ -7,12 +8,14 @@ import SignUp from './SignUp';
 import Login from './Login';
 import Check from './Check';
 import Header from './Header';
-import TandC from './TandC';
+import Terms from './Terms';
 import Profile from './Profile';
 import NoMatch from "./NoMatch";
 import Home from "./Home";
 
-import {setUserId, getUserId, clearUserId} from "./UserData"
+
+
+
 
 class App extends React.Component {
 
@@ -26,21 +29,24 @@ class App extends React.Component {
             this.setState({
                 id: response.data.id,
                 isLoggedIn: true,
-                TandC: response.data.TandC
+                terms: response.data.terms
             })
         }).catch(() => {
             this.setState({
                 id: null,
                 isLoggedIn: false,
-                TandC: false,
+                terms: false,
             })
         })
+
     }
     
 
     render() {
-        return (<div className="App">
-            {this.state && <div>
+        if (this.state === undefined) {
+            return(<div />)
+        } else
+            return (<div className="App">
                 <Header {...this.state} />
                 <Switch>
                     <Route path="/home" component={Home} />
@@ -48,15 +54,13 @@ class App extends React.Component {
                     <Route path="/signup" component={SignUp} />
                     <Route path="/login" component={Login} />
                     <Route path="/check" component={Check} />
-                    <Route path="/terms" component={TandC} />
+                    <Route path="/terms" component={Terms} />
                     <Route path="/profile/:id" render={(props) => (
                         <Profile key={props.match.params.id} {...props} {...this.state} />
                     )} />
                     <Route component={NoMatch} />
-                </Switch>
-            </div>}
-                
-        </div>)
+                </Switch> 
+            </div>)
     }
 }
 

@@ -53,10 +53,10 @@ class SignUp extends React.Component {
                 <label htmlFor="password">Genêro:</label>
                 <select name="gender" onChange={this.handleChange} defaultValue="default" >
                     <option disabled value="default">Selecione</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Feminino</option>
-                    <option value="O">Outro</option>
-                    <option value="N">Não desejo informar</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outro">Outro</option>
+                    <option value="Não informado">Não desejo informar</option>
                 </select>
                 <label htmlFor="password">Senha:</label>
                 <input type="password" name="password" id="password" onChange={this.handleChange} />

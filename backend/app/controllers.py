@@ -42,23 +42,43 @@ def signUp():
     return "Sucesso na inscrição do usuário."
 
 
-@users.route("/fbsignup", methods=["POST"])
+@users.route("/fblogin", methods=["POST"])
 def fbSignUp():
-    return
+    data = request.get_json()
+    try:
+        email = data["email"]
+        name = data["name"]
+    except:
+        raise InvalidUsage("Informações faltando.", status_code=410)
+
+    user = User.query.filter_by(email=email).first() 
+    if user is None:
+        user = User(email=email, name=name, pw_hash="", phone="", gender="Não informado", fb=True)
+        db.session.add(user)
+        db.session.commit()
+    
+    login_user(user)
+
+    return jsonify(user.id)
 
 
 @users.route("/login", methods=["POST"])
 def login():
 
     data = request.get_json()
-
     try:
         email = data["email"]
         password = data["password"]
-        user = User.query.filter_by(email=email).first()
     except:
+        raise InvalidUsage("Informações faltando.", status_code=410)
+
+    user = User.query.filter_by(email=email).first()    
+    if user is None:
         raise InvalidUsage("Usuário não encontrado.", status_code=410)
     
+    if user.fb == True:
+        raise InvalidUsage("Faça Login usando o botão do Facebook.", status_code=401)
+
     if check_password_hash(user.pw_hash, password):
         login_user(user)
         return jsonify(user.id)
@@ -67,6 +87,7 @@ def login():
 
 
 @users.route("/profile/<int:id>", methods=["GET"])
+@login_required
 def getUser(id):
     try:
         user = User.query.filter_by(id=id).first()
@@ -81,15 +102,16 @@ def setData():
 
     data = request.get_json()
     user = current_user
-
+    print(data)
     for key in data:
         try:
             if user.setAttributes(key, data[key]):
-                db.session.commit() 
-                userData = user.getProfile()      
+                db.session.commit()     
                 continue
         except:
             raise InvalidUsage("Erro ao alterar dados. Atributo inexistente ou inalterável.", status_code=410)
+    
+    userData = user.getProfile()  
     return jsonify(userData)
 
 
@@ -130,7 +152,7 @@ def terms():
     text = f.read()
     
     data = {
-        "TandC": current_user.TandC,
+        "terms": current_user.terms,
         "text": text
     }
     return jsonify(data)
@@ -147,13 +169,23 @@ def check():
 @users.route("/populate", methods=["GET"])
 def populate():
     for i in range(10):
-        email = "user"+str(i)+"@user.com"
+        email = "user"+str(i)
         name = "User "+str(i)
         password = generate_password_hash("user"+str(i))
-        gender = "N"
+        gender = "Não informado"
         phone = str(i)+str(i)+str(i)+str(i)+str(i)+str(i)+str(i)+str(i)
         user = User(email=email, name=name, pw_hash=password, gender=gender, phone=phone)
         db.session.add(user)
         db.session.commit()
+    
+    email = "admin"
+    name = "admin"
+    password = generate_password_hash("admin")
+    gender = "Não informado"
+    phone = "0"
+    user = User(email=email, name=name, pw_hash=password, gender=gender, phone=phone) 
+    db.session.add(user)
+    db.session.commit()
+
     return "Sucesso"
 

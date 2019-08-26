@@ -12,7 +12,9 @@ class User(UserMixin, db.Model):
     sports = db.Column(db.String(40))
     music = db.Column(db.String(40))
     travel = db.Column(db.String(40))
-    TandC = db.Column(db.Boolean, default=False)
+    terms = db.Column(db.Boolean, default=False)
+    fb = db.Column(db.Boolean, default=False)
+    admin = db.Column(db.Boolean, default=False)
 
     def getProfile(self):
         data = {
@@ -24,12 +26,14 @@ class User(UserMixin, db.Model):
             "music": self.music,
             "travel": self.travel,
             "phone": self.phone,
-            "TandC": self.TandC
+            "terms": self.terms,
+            "fb": self.fb,
+            "admin": self.admin
         }
         return data
 
     def setAttributes(self, key, value):
-        if key == "sports" or key == "music" or key == "travel" or key == "phone" or key == "TandC":
+        if key == "sports" or key == "music" or key == "travel" or key == "phone" or key == "terms" or key == "gender":
             setattr(self, key, value)
             return True
         return False

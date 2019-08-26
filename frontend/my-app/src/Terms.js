@@ -3,30 +3,30 @@ import { Link } from "react-router-dom"
 import Axios from 'axios';
 import { clearUserId } from './UserData';
 
-import "./TandC.css";
+import "./Terms.css";
 
-class TandC extends React.Component {
+class Terms extends React.Component {
 
     constructor(props) {
         super(props);
         this.handleCheckbox = this.handleCheckbox.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
-            TandC: false
+            terms: false
         }
     }
 
     componentDidMount() {
         Axios.get("/api/terms")
         .then(response => {
-            if (!response.data.TandC) {
+            if (!response.data.terms) {
                 let text = document.getElementById("terms")
                 text.innerHTML = response.data.text
                 text.style.textAlign = "justify"
                 text.style.textJustify = "inter-word"
                 text.style.padding = "0.5rem 1rem"
                 text.style.border = "1px solid black"
-                text.style.height = "20rem"
+                text.style.height = "18rem"
                 text.style.overflowY = "scroll"
             } else {
                 let text = document.getElementById("terms")
@@ -47,14 +47,14 @@ class TandC extends React.Component {
             value = true
 
         this.setState({
-            TandC: value
+            terms: value
         })
     }
 
     handleSubmit(e) {
         e.preventDefault()
         Axios.put("/api/profile/set", {
-            TandC: this.state.TandC
+            terms: this.state.terms
         }).then((response) => {
             window.location.assign("/profile/"+String(response.data.id))
         }).catch(() => {
@@ -68,7 +68,7 @@ class TandC extends React.Component {
             <p id="terms" />
             <form onSubmit={this.handleSubmit} className="checkbox" id="form" >
                 <label htmlFor="checkbox">Aceito os Termos e Condições</label>
-                <input name="TandC" onChange={this.handleCheckbox} type="checkbox" id="checkbox" />
+                <input name="terms" onChange={this.handleCheckbox} type="checkbox" id="checkbox" />
                 <div className="button-container">
                     <button>Enviar</button>
                 </div>
@@ -77,7 +77,7 @@ class TandC extends React.Component {
     }
 }
 
-export default TandC;
+export default Terms;
 
 
 
