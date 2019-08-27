@@ -43,7 +43,7 @@ class App extends React.Component {
     
 
     render() {
-        if (this.state === undefined) {
+        if (this.state === null || this.state === undefined) {
             return(<div />)
         } else
             return (<div className="App">

@@ -143,9 +143,9 @@ def getSession():
 @login_required
 def terms():
 
-    path = BASE_DIR+"\\Terms.txt"
+    path = "Terms.txt"
     try:
-        f = open(path, "r")
+        f = open(path, "r", encoding="utf-8")
     except:
         raise InvalidUsage("Erro na aquisição dos termos.", status_code=410)
     
@@ -189,3 +189,13 @@ def populate():
 
     return "Sucesso"
 
+@users.route("/teams", methods=["GET"])
+def getTeams():
+    
+    path = "Teams.txt"
+    try:
+        f = open(path, "r", encoding="utf-8")
+    except:
+        raise InvalidUsage("Erro na aquisição dos termos.", status_code=410)
+
+    return jsonify(f.readlines())

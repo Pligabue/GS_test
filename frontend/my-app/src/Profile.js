@@ -80,8 +80,6 @@ class Profile extends Component {
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => {
-            console.log(this.state)
         })
     }
 
@@ -164,25 +162,25 @@ function BuildOnClick(handleChange, handleSubmit) {
 
         let phoneInput = document.createElement("input")
         let genderSelect = document.createElement("select")
-        let sportsInput = document.createElement("input")
+        let sportsSelect = document.createElement("select")
         let musicInput = document.createElement("input")
         let travelInput = document.createElement("input")
 
         phoneInput.name = "phone"
         genderSelect.name = "gender"
-        sportsInput.name = "sports"
+        sportsSelect.name = "sports"
         musicInput.name = "music"
         travelInput.name = "travel"
 
         phoneInput.defaultValue = defaultPhone
         genderSelect.defaultValue = defaultGender
-        sportsInput.defaultValue = defaultSports
+        sportsSelect.defaultValue = defaultSports
         musicInput.defaultValue = defaultMusic
         travelInput.defaultValue = defaultTravel
     
         phoneInput.onchange = handleChange
         genderSelect.onchange = handleChange
-        sportsInput.onchange = handleChange
+        sportsSelect.onchange = handleChange
         musicInput.onchange = handleChange
         travelInput.onchange = handleChange
 
@@ -191,6 +189,26 @@ function BuildOnClick(handleChange, handleSubmit) {
         sports.innerHTML = ""
         music.innerHTML = ""
         travel.innerHTML = ""
+
+        let option = document.createElement("option")
+        option.value = "default"
+        option.innerHTML = "Selecione seu time"
+        option.disabled = true
+        if (defaultSports === "") 
+            option.selected = true
+        sportsSelect.appendChild(option)
+        
+        Axios.get("/api/teams")
+        .then(response => {
+            for (let team of response.data) {
+                let option = document.createElement("option")
+                option.value = team
+                option.innerHTML = team
+                if (team === defaultSports)
+                    option.selected = true
+                sportsSelect.appendChild(option)
+            }
+        })
 
         let D = document.createElement("option")
         D.value = "default"
@@ -235,7 +253,7 @@ function BuildOnClick(handleChange, handleSubmit) {
 
         phone.appendChild(phoneInput)
         gender.appendChild(genderSelect)
-        sports.appendChild(sportsInput)
+        sports.appendChild(sportsSelect)
         music.appendChild(musicInput)
         travel.appendChild(travelInput)
 
