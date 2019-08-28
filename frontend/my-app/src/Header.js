@@ -66,6 +66,7 @@ class Header extends React.Component {
         return (<div className="header">
             <div className="navigation">
                 <Link to="/home">Home</Link>
+                <Link to="/about">About</Link>
             </div>
             <div className="navigationLogin">
                 {!this.state.isLoggedIn ? <div>

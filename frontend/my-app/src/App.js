@@ -12,6 +12,7 @@ import Terms from './Terms';
 import Profile from './Profile';
 import NoMatch from "./NoMatch";
 import Home from "./Home";
+import About from './About';
 
 
 
@@ -51,6 +52,7 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/home" component={Home} />
                     <Route exact path="/" component={Home} />
+                    <Route path="/about" component={About} />
                     <Route path="/signup" component={SignUp} />
                     <Route path="/login" component={Login} />
                     <Route path="/check" component={Check} />

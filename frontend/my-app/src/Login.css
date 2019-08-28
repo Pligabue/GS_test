@@ -4,7 +4,10 @@
     background-color: black;
 }
 
-.fb-button {
+.myForms .fb-button {
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
     background-color: #3b5998; 
     color: white;
 }

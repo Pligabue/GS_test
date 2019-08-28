@@ -36,8 +36,6 @@ class Terms extends React.Component {
             }
         }).catch(error => {
             alert(error)
-            // Axios.get("/api/logout")
-            // clearUserId()
         })
     }
 

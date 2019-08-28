@@ -44,10 +44,12 @@
     font-family: "Roboto Condensed";
 
     position: relative;
-    top: 3.85rem;
+    top: 5.5rem;
 }
 
 .myForms h1 {
+    padding: 1rem 0;
+    font-size: 2.5rem;
 }
 
 .myForms form {
